@@ -19,17 +19,19 @@ print ("socket binded to %s" %(port))
   
 # put the socket into listening mode 
 s.listen(5)      
-print ("socket is listening")
+print ("socket is listening")   
   
 # a forever loop until we interrupt it or  
 # an error occurs 
-slaves=[]
 while True: 
   
    # Establish connection with client. 
    c, addr = s.accept()      
-   if not (addr in slaves):
-      slaves.append(addr);
-
-   # send a thank you message to the client.  
-   print(slaves)
+   print ('Got connection from', addr )
+  
+   # send a thank you message to the client.
+   msg = input()  
+   c.send(msg.encode()) 
+  
+# Close the connection with the client 
+c.close() 
