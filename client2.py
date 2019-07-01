@@ -1,18 +1,16 @@
-# Import socket module 
-import socket                
-  
-# Create a socket object 
-s = socket.socket()          
-  
-# Define the port on which you want to connect 
-port = 12345                
-  
-# connect to the server on local computer 
-s.connect(('127.0.0.1', port)) 
+import socket
+import os
+import subprocess
+
+s = socket.socket()
+host = '127.0.0.1'
+port = 1234
+
+s.connect((host, port))
 
 while True:
-   # receive data from the server 
-   print (s.recv(1024) )
-   
-# close the connection 
-s.close()      
+	data = s.recv(1024)
+	if len(data) > 0:
+		print("[Server] " + data.decode("utf-8"))
+	msg_to_server = input("=> ")
+	s.send(str.encode(msg_to_server))
