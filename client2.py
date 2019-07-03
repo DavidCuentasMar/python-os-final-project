@@ -11,6 +11,8 @@ s.connect((host, port))
 while True:
 	data = s.recv(1024)
 	if len(data) > 0:
-		print("[Server] " + data.decode("utf-8"))
-	msg_to_server = input("=> ")
-	s.send(str.encode(msg_to_server))
+		if data.decode("utf-8") == "ping":
+			s.send(str.encode("pong"))
+		else:
+			print("[Server] " + data.decode("utf-8"))
+	
